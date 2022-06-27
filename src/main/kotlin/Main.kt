@@ -1,42 +1,48 @@
 fun main(args: Array<String>) {
+    /*Instancia sobre la clase Cajero*/
     val cajero : Cajero = Cajero()
-    val usuario : Usuario = Usuario("meny",1234)
+    /*Instancia sobre la clase Usuario*/
+    val usuario : Usuario = Usuario("LuisRomero",281199)
+    /*Variables para validar al usuario*/
     val user = usuario.user
     var nip = usuario.nip
+    /*Lista de almacenamiento de usuarios creados*/
     var userList = mutableListOf<Usuario>()
     userList.add(usuario)
     var i = 0
-
-    print("!Bienvenido¡ \n");
-
+    /*Banner de bienvenida a cajero*/
+    print("!Bienvenido a su cajero ATM BBVA favorito¡ \n");
+    /*Menú de opciones a seleccionar*/
     var opcion = ""
     while (opcion != "s"){
-        println("Ingrese la opcion deseada \n")
-        print("a) Depositar a cajero \n")
-        print("b) Retirar Efectivo\n")
-        print("c) Crear cuenta nueva \n")
-        print("d) Depositar a cuenta \n")
-        print("e) Estado de cuenta \n")
-        print("f) Estado del cajero \n")
-        print("s) salir\n")
+        println("Por favor, Ingrese la opcion que desee usar \n")
+        print("a) Deposito a cajero ATM \n")
+        print("b) Retiro de Efectivo a cuenta de usuario\n")
+        print("c) Crear cuenta de usuario nuevo \n")
+        print("d) Depositar a cuenta de usuario \n")
+        print("e) Estado de cuenta de usuario \n")
+        print("f) Estado del cajero ATM \n")
+        print("s) salir de cajero\n")
         print("--------------------------------------------------------- \n")
         opcion = readLine().toString()
+        /*Cuando el usuario oprima una acción del menú,
+          seleccionara la letra para ejercer la función deseada*/
         when(opcion){
             "a" -> {
                 var more = ""
                 do {
-                    print("Seleccione billete a ingresar: \n20\n50\n100\n200\n500\n")
+                    print("Por favor, escoja el tipo de billete a depositar: \n20\n50\n100\n200\n500\n")
                     var sBillete = readLine()!!.toInt()
-                    print("Ingrese cantidad a ingresar de $sBillete \n")
+                    print("Por favor, Ingrese la cantidad de billetes a ingresar de $sBillete \n")
                     var amountAtm = readLine()!!.toInt()
-                    cajero.addMoneyATM(sBillete, amountAtm)
-                    print("¿Desea ingresar más billetes? s / n \n")
+                    cajero.DepositoATM(sBillete, amountAtm)
+                    print("¿Desea depositar más billetes? s / n \n")
                     more = readLine().toString()
                 }while (more == "s")
 
             }
             "b" -> {
-                print("Ingrese su usuario \n")
+                print("Por favor, Ingrese su nombre de usuario \n")
                 var user = readLine()!!
                 var ue = false
                 i = 0
@@ -48,25 +54,25 @@ fun main(args: Array<String>) {
                     i ++
                 }
                 if (ue){
-                    print("Ingrese su NIP \n")
+                    print("Por favor, Indique su NIP \n")
                     var nip = readLine()!!.toInt()
-                    print("Ingrese la cantidad a retirar")
+                    print("Ingrese la cantidad que desea retirar")
                     var userMoney = readLine()!!.toInt()
-                    cajero.subtractUserMoney(userMoney)
-                }else print("No existe el usuario")
+                    cajero.RetiroUsuario(userMoney)
+                }else print("El usuario $user no existe")
             }
             "c" -> {
-                usuario.createUser()
+                usuario.crearUsuario()
                 userList.add(Usuario(user, nip))
                 for (i in userList) print("${i.user} \n")
             }
             "d" -> {
-                print("Ingrese la cantidad a depositar \n")
+                print("Ingrese la cantidad de dinero a depositar \n")
                 var userMoney = readLine()!!.toInt()
-                cajero.addUserMoney(userMoney)
+                cajero.DepositoUsuario(userMoney)
             }
-            "e" -> cajero.showUserMoney()
-            "f" -> cajero.showAtmMoney()
+            "e" -> cajero.EstadodineroUsuario()
+            "f" -> cajero.EstadodineroATM()
             "s" -> break
             else -> println("Opción no valida \n")
         }
